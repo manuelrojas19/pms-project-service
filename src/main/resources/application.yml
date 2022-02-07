@@ -1,0 +1,32 @@
+quarkus:
+  mongodb:
+    connection-string: mongodb://${PS_MONGO_HOST}:27017
+    database: ${PS_MONGO_DB_NAME}
+    hosts: ${PS_MONGO_HOST}:27017
+  http:
+    port: 8091
+  kubernetes:
+    env:
+      configmaps: mongo-config
+
+"%prod":
+  quarkus:
+    mongodb:
+      connection-string: mongodb://${PS_MONGO_HOST}:27017
+      database: ${PS_MONGO_DB_NAME}
+      hosts: ${PS_MONGO_HOST}:27017
+    http:
+      port: 8091
+    kubernetes:
+      env:
+        configmaps: mongo-config
+
+
+"%dev":
+  quarkus:
+    mongodb:
+      connection-string: mongodb://localhost:27017
+      database: project_service_db
+      hosts: localhost:27017
+    http:
+      port: 8091
