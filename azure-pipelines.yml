@@ -1,0 +1,30 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+
+steps:
+- task: Docker@2
+  displayName: Login to ACR
+  inputs:
+    command: login
+    containerRegistry: pmsContRegConnection
+- task: Maven@3
+  displayName: 'Maven Build'
+  inputs:
+    goals: 'package -Dmaven.test.skip=true'
+    options: '--settings azure-mvn-settings.xml -B -Pquarkus -Dnative-image.docker-build -Pnative -Dnative-image.xmx=4g'
+- task: Docker@2
+  displayName: Build and Push
+  inputs:
+    command: buildAndPush
+    repository: pms-project-service
+    tags: latest
+
