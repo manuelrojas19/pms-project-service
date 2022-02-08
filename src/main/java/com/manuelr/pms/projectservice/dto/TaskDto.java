@@ -2,6 +2,9 @@ package com.manuelr.pms.projectservice.dto;
 
 import com.manuelr.pms.projectservice.enums.TaskStatus;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.eclipse.microprofile.graphql.Name;
 
 import javax.json.bind.annotation.JsonbDateFormat;
 import javax.json.bind.annotation.JsonbPropertyOrder;
@@ -9,7 +12,8 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
-
+@Name("Task")
+@NoArgsConstructor
 @JsonbPropertyOrder({"id", "name", "description", "projectId", "status", "beginDate", "endDate"})
 public class TaskDto {
 
@@ -20,7 +24,6 @@ public class TaskDto {
     @Size(max = 50)
     private String name;
 
-    @NotBlank
     @Size(max = 250)
     private String description;
 
