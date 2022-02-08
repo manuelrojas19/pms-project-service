@@ -19,9 +19,9 @@ import javax.ws.rs.core.MediaType;
 import java.net.URI;
 
 @ApplicationScoped
+@Path("/api/v1")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/api/v1")
 public class TaskResource {
 
     @Inject
@@ -70,6 +70,13 @@ public class TaskResource {
     @Path("/tasks/{id}")
     public Uni<RestResponse<?>> delete(@RestPath String id) {
         return taskService.delete(id).replaceWith(() -> ResponseBuilder
+                .noContent().build());
+    }
+
+    @DELETE
+    @Path("/tasks")
+    public Uni<RestResponse<?>> deleteAll() {
+        return taskService.deleteAll().replaceWith(() -> ResponseBuilder
                 .noContent().build());
     }
 

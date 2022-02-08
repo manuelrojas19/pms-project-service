@@ -72,4 +72,11 @@ public class ProjectResource {
                 .noContent().build());
     }
 
+    @DELETE
+    @Path("/projects")
+    public Uni<RestResponse<?>> deleteAll() {
+        return projectService.deleteAll().replaceWith(() -> ResponseBuilder
+                .noContent().build());
+    }
+
 }
