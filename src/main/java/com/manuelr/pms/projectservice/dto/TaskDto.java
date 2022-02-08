@@ -3,7 +3,6 @@ package com.manuelr.pms.projectservice.dto;
 import com.manuelr.pms.projectservice.enums.TaskStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.bson.codecs.pojo.annotations.BsonId;
 import org.eclipse.microprofile.graphql.Name;
 
 import javax.json.bind.annotation.JsonbDateFormat;
