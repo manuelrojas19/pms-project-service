@@ -16,4 +16,8 @@ public interface TaskService {
     Uni<Task> update(String id, Task task);
 
     Uni<Void> delete(String id);
+
+    Multi<Task> deleteAllByProject(String id);
+
+    Uni<Long> deleteAll();
 }

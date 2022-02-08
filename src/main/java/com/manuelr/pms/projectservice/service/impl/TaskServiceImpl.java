@@ -14,11 +14,11 @@ import org.bson.types.ObjectId;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.util.Collections;
 
 @ApplicationScoped
 @com.manuelr.pms.projectservice.annotations.TaskServiceImpl
 public class TaskServiceImpl implements TaskService {
-
     public static final String NOT_FOUND_ERROR_MSG = "Task was not found";
 
     @Inject
@@ -46,27 +46,31 @@ public class TaskServiceImpl implements TaskService {
                 .onItem().transformToMulti(project -> taskRepository.findAllByProject(project.getId()));
     }
 
+
     @Override
     public Uni<Task> save(Task task) {
         return projectService.findById(task.getProjectId().toString())
                 .onFailure().transform(throwable -> new BadRequestException(throwable.getMessage()))
-                .map(project -> {
-                    project.getTasks().add(task);
-                    return project;
-                })
-                .chain(project -> projectService.save(project))
-                .map(project -> {
+                .chain(project -> {
                     task.setProjectId(project.getId());
-                    return task;
-                })
-                .chain(t -> taskRepository.persistOrUpdate(t));
+                    return taskRepository.persist(task)
+                            .call(t -> {
+                                project.getTasks().add(t);
+                                return projectService.save(project);
+                            });
+                });
     }
 
+    @Override
+    public Multi<Task> deleteAllByProject(String projectId) {
+        return taskRepository.findAllByProject(new ObjectId(projectId))
+                .onItem().call(t -> taskRepository.delete(t));
+    }
 
     @Override
     public Uni<Task> update(String id, Task task) {
         return taskRepository.findById(new ObjectId(id))
-                .onItem().ifNull().failWith(() -> new NotFoundException("Task was not found"))
+                .onItem().ifNull().failWith(() -> new NotFoundException(NOT_FOUND_ERROR_MSG))
                 .map(t -> {
                     t.setName(task.getName());
                     t.setDescription(task.getDescription());
@@ -79,7 +83,20 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Uni<Void> delete(String id) {
         return taskRepository.findById(new ObjectId(id))
-                .onItem().ifNull().failWith(() -> new NotFoundException("Task was not found"))
-                .chain(p -> taskRepository.delete(p));
+                .onItem().ifNull().failWith(() -> new NotFoundException(NOT_FOUND_ERROR_MSG))
+                .call(task -> projectService.findById(task.getProjectId().toString())
+                        .call(project -> {
+                            project.getTasks().remove(task);
+                            return projectService.save(project);
+                        }))
+                .chain(task -> taskRepository.delete(task));
+    }
+
+    @Override
+    public Uni<Long> deleteAll() {
+        return projectService.findAll().call(project -> {
+            project.setTasks(Collections.emptyList());
+            return projectService.save(project);
+        }).collect().asList().chain(t -> taskRepository.deleteAll());
     }
 }

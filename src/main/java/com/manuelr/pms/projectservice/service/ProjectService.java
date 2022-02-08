@@ -16,4 +16,6 @@ public interface ProjectService {
     Uni<Project> update(String id, Project project);
 
     Uni<Void> delete(String id);
+
+    Uni<Long> deleteAll();
 }
