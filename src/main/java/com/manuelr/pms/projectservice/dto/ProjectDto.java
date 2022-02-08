@@ -1,6 +1,5 @@
 package com.manuelr.pms.projectservice.dto;
 
-import com.manuelr.pms.projectservice.entity.Employee;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.eclipse.microprofile.graphql.Name;
