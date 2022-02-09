@@ -20,11 +20,11 @@ steps:
   displayName: 'Maven Build'
   inputs:
     goals: 'package -Dmaven.test.skip=true'
-    options: '-Pquarkus -Dquarkus.native-image.docker-build -Pnative -Dquarkus.native-image.xmx=4g'
+    options: '-Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true'
 - task: Docker@2
   displayName: Push
   inputs:
     command: push
     repository: project-service
-    tags: latest
+    tags: 1.2-SNAPSHOT
 
