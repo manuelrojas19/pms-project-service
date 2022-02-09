@@ -22,9 +22,9 @@ steps:
     goals: 'package -Dmaven.test.skip=true'
     options: '-Pquarkus -Dquarkus.native-image.docker-build -Pnative -Dquarkus.native-image.xmx=4g'
 - task: Docker@2
-  displayName: Build and Push
+  displayName: Push
   inputs:
-    command: buildAndPush
+    command: push
     repository: pms-project-service
     tags: latest
 
