@@ -31,7 +31,6 @@ public class TaskResource {
     @Inject
     TaskMapper taskMapper;
 
-
     @GET
     @Path("/tasks")
     public Multi<TaskDto> findAll() {
