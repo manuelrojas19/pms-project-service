@@ -25,6 +25,6 @@ steps:
   displayName: Push
   inputs:
     command: push
-    repository: project-service
-    tags: 1.2-SNAPSHOT
+    repository: manuelr/pms-project-service
+    tags: latest
 
