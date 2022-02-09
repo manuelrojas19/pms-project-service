@@ -5,6 +5,9 @@ quarkus:
     hosts: ${PS_MONGO_HOST}:27017
   http:
     port: 8091
+  container-image:
+    name: pms-project-service
+    tag: latest
   kubernetes:
     env:
       configmaps: mongo-config
@@ -17,6 +20,9 @@ quarkus:
       hosts: ${PS_MONGO_HOST}:27017
     http:
       port: 8091
+    container-image:
+      name: pms-project-service
+      tag: latest
     kubernetes:
       env:
         configmaps: mongo-config

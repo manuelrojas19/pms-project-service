@@ -4,7 +4,6 @@ import com.manuelr.pms.projectservice.annotations.ProjectServiceImpl;
 import com.manuelr.pms.projectservice.dto.ProjectDto;
 import com.manuelr.pms.projectservice.mapper.ProjectMapper;
 import com.manuelr.pms.projectservice.service.ProjectService;
-import io.smallrye.mutiny.Multi;
 import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
@@ -14,7 +13,6 @@ import org.eclipse.microprofile.graphql.Query;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @GraphQLApi
 @ApplicationScoped
@@ -40,4 +38,10 @@ public class ProjectResource {
         return projectService.findById(id).map(projectMapper::toDto);
     }
 
+//    @Mutation
+//    @Description("Create a Project")
+//    public Uni<ProjectDto> create(ProjectDto projectDto) {
+//        return projectService.save(projectMapper.toEntity(projectDto))
+//                .map(projectMapper::toDto);
+//    }
 }

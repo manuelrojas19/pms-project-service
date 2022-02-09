@@ -36,4 +36,11 @@ public class TaskResource {
         return taskService.findById(id).map(taskMapper::toDto);
     }
 
+//    @Mutation
+//    @Description("Create a Task")
+//    public Uni<TaskDto> create(TaskDto taskDto) {
+//        return taskService.save(taskMapper.toEntity(taskDto))
+//                .map(taskMapper::toDto);
+//    }
+
 }
