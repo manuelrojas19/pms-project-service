@@ -20,7 +20,7 @@ steps:
   displayName: 'Maven Build'
   inputs:
     goals: 'package -Dmaven.test.skip=true'
-    options: '--settings .mvn/settings.xml -B -Pquarkus -Dquarkus.native-image.docker-build -Pnative -Dquarkus.native-image.xmx=4g'
+    options: '-Pquarkus -Dquarkus.native-image.docker-build -Pnative -Dquarkus.native-image.xmx=4g'
 - task: Docker@2
   displayName: Build and Push
   inputs:
