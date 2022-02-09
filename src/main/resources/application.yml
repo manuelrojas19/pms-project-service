@@ -6,8 +6,9 @@ quarkus:
   http:
     port: 8091
   container-image:
-    group:
+    group: manuelrojas19
     name: pms-project-service
+    registry: pmsContRegConnection
     tag: latest
   kubernetes:
     env:
