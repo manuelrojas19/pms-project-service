@@ -15,7 +15,7 @@ steps:
   displayName: Login to ACR
   inputs:
     command: login
-    containerRegistry: pmsContRegConnection
+    containerRegistry: dockerRegistryConnection
 - task: Maven@3
   displayName: 'Maven Build'
   inputs:
@@ -25,6 +25,5 @@ steps:
   displayName: Push
   inputs:
     command: push
-    containerRegistry: pmsContRegConnection
     repository: manuelrojas19/pms-project-service
 
