@@ -25,6 +25,6 @@ steps:
   displayName: Push
   inputs:
     command: push
-    repository: pms-project-service
-    tags: latest
+    containerRegistry: pmsContRegConnection
+    repository: manuelrojas19/pms-project-service
 
