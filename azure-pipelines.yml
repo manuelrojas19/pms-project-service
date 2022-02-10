@@ -20,5 +20,5 @@ steps:
   displayName: 'Maven Build'
   inputs:
     goals: 'package -Dmaven.test.skip=true'
-    options: '-Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true'
+    options: '-Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true -Dquarkus.container-image.username=$(container_registry_username) -Dquarkus.container-image.password=$(container_registry_password)'
 
