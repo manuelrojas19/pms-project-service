@@ -12,7 +12,7 @@ pool:
 
 steps:
 - task: Docker@2
-  displayName: Login to ACR
+  displayName: Login to Docker Registry
   inputs:
     command: login
     containerRegistry: dockerRegistryConnection
@@ -20,10 +20,5 @@ steps:
   displayName: 'Maven Build'
   inputs:
     goals: 'package -Dmaven.test.skip=true'
-    options: '-Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true'
-- task: Docker@2
-  displayName: Push
-  inputs:
-    command: push
-    repository: manuelrojas19/pms-project-service
+    options: '-Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true'
 
