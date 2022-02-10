@@ -8,7 +8,6 @@ quarkus:
   container-image:
     group: manuelrojas19
     name: pms-project-service
-    registry: pmsContRegConnection
     tag: latest
   kubernetes:
     env:

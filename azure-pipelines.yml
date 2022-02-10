@@ -21,11 +21,10 @@ steps:
   inputs:
     goals: 'package -Dmaven.test.skip=true'
     options: '-Pnative -Dquarkus.native.container-build=true -Dquarkus.container-image.build=true'
-#- task: Docker@2
-#  displayName: Push
-#  inputs:
-#    command: push
-#    repository: pms-project-service
-#    containerRegistry: pmsContRegConnection
-#    tags: latest
+- task: Docker@2
+  displayName: Push
+  inputs:
+    command: push
+    repository: manuelrojas19/pms-project-service
+    tags: latest
 
